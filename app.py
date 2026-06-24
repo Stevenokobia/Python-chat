@@ -51,9 +51,12 @@ def handle_message(data):
 
 @socketio.on("update_username")
 def handle_update_username(data):
-    old_username = users[request.sid]["username"]
+    user = users.get(request.sid)
+    if not user:
+        return
+    old_username = user["username"]
     new_username = data["username"]
-    users[request.sid]["username"] = new_username
+    user["username"] = new_username
 
     emit("username_updated", {
         "old_username": old_username,
