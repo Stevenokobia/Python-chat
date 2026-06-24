@@ -1,12 +1,9 @@
-from flask_socketio import SocketIO, emit
-from flask import Flask, render_template, request
 import random
-import eventlet
-eventlet.monkey_patch()
-
+from flask import Flask, render_template, request
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, async_mode="threading")
 
 # python dict. Store connected users. Key is socket id, value is username and avatarUrl
 users = {}
